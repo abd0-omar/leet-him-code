@@ -1,0 +1,7 @@
+fn main() {
+    println!("Hello, world!");
+}
+
+pub fn max_frequency(nums: Vec<i32>, k: i32) -> i32 {
+    unimplemented!()
+}

@@ -1,0 +1,5 @@
+# Ignore Rust target files
+**/target/
+
+# Ignore .git directories in subdirectories
+**/.git/
