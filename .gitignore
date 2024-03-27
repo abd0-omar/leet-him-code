@@ -3,3 +3,13 @@
 
 # Ignore .git directories in subdirectories
 **/.git/
+
+./same-tree/
+./evaluate_reverse_polish_notation/
+./balanced_binary_tree/
+./binary_tree_level_order_traversal/
+./invert_binary_tree/
+./level_order_traversal/
+./playground/
+./subtree_of_another_tree/
+./symmetric_tree/
