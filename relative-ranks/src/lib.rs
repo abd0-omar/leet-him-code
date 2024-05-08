@@ -1,37 +1,28 @@
 pub fn find_relative_ranks(score: Vec<i32>) -> Vec<String> {
-    let mut max_elements = vec![(0, -1); 3];
+    let mut score_with_indices = score
+        .iter()
+        .enumerate()
+        .map(|(idx, &grade)| (grade, idx))
+        .collect::<Vec<_>>();
 
-    for (i, &s) in score.iter().enumerate() {
-        if s > max_elements[0].0 {
-            max_elements[0] = (s, i as i32);
-            max_elements.sort_unstable();
-            println!("max_elements={:?}", max_elements);
+    score_with_indices.sort_unstable_by(|a, b| b.0.cmp(&a.0));
+    let mut count = 0;
+    let mut res = vec![String::new(); score.len()];
+
+    for (_, idx) in score_with_indices {
+        if count >= 3 {
+            res[idx] = (count + 1).to_string();
+        } else if count == 0 {
+            res[idx] = "Gold Medal".to_string();
+        } else if count == 1 {
+            res[idx] = "Silver Medal".to_string();
+        } else if count == 2 {
+            res[idx] = "Bronze Medal".to_string();
         }
+        count += 1;
     }
 
-    let mut champs = vec![
-        "Gold Medal".to_string(),
-        "Silver Medal".to_string(),
-        "Bronze Medal".to_string(),
-    ]
-    .into_iter();
-    let mut score: Vec<String> = score.iter().map(|x| x.to_string()).collect();
-    for (_, i) in max_elements.iter().rev() {
-        if i >= &0 {
-            if let Some(cha) = champs.next() {
-                println!("cha={:?}", cha);
-                score[*i as usize] = cha;
-            }
-        }
-    }
-    for s in score.clone() {
-        if let Ok(s_parsed) = s.parse::<usize>() {
-            println!("s_parsed={:?}", s_parsed);
-            score[s_parsed] = s_parsed.to_string();
-        }
-    }
-    score
-    // 241
+    res
 }
 
 #[cfg(test)]
@@ -41,6 +32,8 @@ mod tests {
     #[test]
     fn it_works() {
         let score = vec![10, 3, 8, 9, 4];
+        // 3, 4, 8, 9, 10
+        // 10, 9, 8, 4, 3
         let output = vec![
             "Gold Medal".to_string(),
             "5".to_string(),
