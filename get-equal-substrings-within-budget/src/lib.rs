@@ -17,10 +17,14 @@ pub fn equal_substring(s: String, t: String, max_cost: i32) -> i32 {
     // changes=[15, 8, 6, 12, 4]
     // prefix_changes=[0, 15, 23, 29, 41, 45]
 
+    // changes=[3, 6, 15, 11, 3, 9, 8, 15, 22, 10, 3, 7, 3, 4, 0]
+    // prefix_changes=[0, 3, 9, 24, 35, 38, 47, 55, 70, 92, 102, 105, 112, 115, 119, 119]
+    // 14
+
     let mut max_valid_len = 0;
     let mut st = 0;
     let mut end = 1;
-    while end < n {
+    while end <= n {
         if prefix_changes[end] - prefix_changes[st] <= max_cost || end == st {
             max_valid_len = max_valid_len.max(end - st);
             end += 1;
@@ -92,6 +96,16 @@ mod tests {
         let t = "zjxss".to_string();
         let max_cost = 19;
         let output = 2;
+        let result = equal_substring(s, t, max_cost);
+        assert_eq!(result, output);
+    }
+
+    #[test]
+    fn it_works4() {
+        let s = "krpgjbjjznpzdfy".to_string();
+        let t = "nxargkbydxmsgby".to_string();
+        let max_cost = 14;
+        let output = 4;
         let result = equal_substring(s, t, max_cost);
         assert_eq!(result, output);
     }
