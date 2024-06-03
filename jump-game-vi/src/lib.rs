@@ -1,7 +1,7 @@
 pub fn max_result(nums: Vec<i32>, k: i32) -> i32 {
-    // let mut memory = vec![None; nums.len()];
-    // _max_result(&nums, k as usize, 0, &mut memory)
-    _max_result_graph(&nums, k as usize)
+    let mut memory = vec![None; nums.len()];
+    _max_result(&nums, k as usize, 0, &mut memory)
+    // _max_result_graph(&nums, k as usize)
 }
 
 // could be solved with a graph priority queue (dijsktra)
@@ -42,8 +42,8 @@ pub fn _max_result_graph(nums: &Vec<i32>, k: usize) -> i32 {
     unreachable!()
 }
 pub fn _max_result(nums: &Vec<i32>, k: usize, st: usize, memory: &mut Vec<Option<i32>>) -> i32 {
-    if st == nums.len() {
-        return 0;
+    if st == nums.len() - 1 {
+        return nums[st];
     }
 
     if let Some(ret) = memory[st] {
@@ -51,23 +51,24 @@ pub fn _max_result(nums: &Vec<i32>, k: usize, st: usize, memory: &mut Vec<Option
     }
 
     let mut answer: Option<i32> = None;
-    for end in st..st + k {
+    for end in 1..=k {
         // check if end is inbounds
-        if end < nums.len() {
+        if st + end < nums.len() {
             if let Some(ans) = answer {
-                answer = Some(ans.max(_max_result(nums, k, end + 1, memory) + nums[end]));
+                answer = Some(ans.max(_max_result(nums, k, end + st, memory) + nums[st]));
             } else {
                 // first time assigning asnwer so we don't need to compare max
-                answer = Some(_max_result(nums, k, end + 1, memory) + nums[end]);
+                answer = Some(_max_result(nums, k, end + st, memory) + nums[st]);
             }
         }
     }
 
     if let Some(ans) = answer {
         memory[st] = Some(ans);
-        return ans;
+        ans
+    } else {
+        answer.unwrap_or(i32::MIN)
     }
-    answer.unwrap_or(i32::MIN)
 }
 
 #[cfg(test)]
