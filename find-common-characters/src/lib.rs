@@ -11,19 +11,23 @@ pub fn common_chars(words: Vec<String>) -> Vec<String> {
 
     let mut common_chars = Vec::new();
 
-    for idx in 0..26 {
-        let mut min_repetation = i32::MAX;
+    'outer: for idx in 0..26 {
+        let mut min_repetation: Option<i32> = None;
         for i in 0..freq.len() {
             let cur = freq[i][idx];
-            if cur < 0 {
-                break;
+            if cur == 0 {
+                continue 'outer;
             }
-            min_repetation = min_repetation.min(cur);
+            if let Some(min) = min_repetation {
+                min_repetation = Some(min.min(cur));
+            } else {
+                min_repetation = Some(cur);
+            }
         }
 
-        if min_repetation != i32::MAX {
+        if let Some(min) = min_repetation {
             let letter = (char::from(idx as u8 + b'a')).to_string();
-            for _ in 0..min_repetation {
+            for _ in 0..min {
                 common_chars.push(letter.clone());
             }
         }
