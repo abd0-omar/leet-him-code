@@ -25,11 +25,11 @@ pub fn common_chars(words: Vec<String>) -> Vec<String> {
             }
         }
 
-        if let Some(min) = min_repetation {
-            let letter = (char::from(idx as u8 + b'a')).to_string();
-            for _ in 0..min {
-                common_chars.push(letter.clone());
-            }
+        let letter = (char::from(idx as u8 + b'a')).to_string();
+        for _ in 0..min_repetation
+            .expect("continue statement makes sure that min_repetation is always valid if reached")
+        {
+            common_chars.push(letter.clone());
         }
     }
 
