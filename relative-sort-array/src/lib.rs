@@ -36,6 +36,21 @@ pub fn relative_sort_array(arr1: Vec<i32>, arr2: Vec<i32>) -> Vec<i32> {
         }
     }
 
+    // rust way
+    // let mut hm = std::collections::HashMap::new();
+    // for (idx, element) in arr2.iter().enumerate() {
+    //     hm.insert(element, idx);
+    // }
+    //
+    // let mut result = arr1.clone();
+    //
+    // result.sort_unstable_by(|&a, &b| match (hm.get(&a), hm.get(&b)) {
+    //     (None, None) => a.cmp(&b),
+    //     (None, Some(_)) => std::cmp::Ordering::Greater,
+    //     (Some(_), None) => std::cmp::Ordering::Less,
+    //     (Some(idx1), Some(idx2)) => idx1.cmp(idx2),
+    // });
+
     result
 }
 
