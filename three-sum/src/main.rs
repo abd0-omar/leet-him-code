@@ -1,32 +1,54 @@
 fn main() {
     println!("Hello, world!");
-    let nums = vec![-1, 0, 1, 2, -1, -4, -2, -3, 3, 0, 4];
-    println!("{:?}", three_sum(nums));
 }
 
 pub fn three_sum(nums: Vec<i32>) -> Vec<Vec<i32>> {
-    let mut hm = std::collections::HashMap::new();
     let mut result = std::collections::HashSet::new();
-
     for i in 0..nums.len() {
+        let mut hm = std::collections::HashMap::new();
         for j in i + 1..nums.len() {
-            //          -1         2   -> 1 so we need to search for -1
-            let diff = nums[i] + nums[j];
-            hm.entry(-diff).or_insert(vec![]).push((i, j));
-        }
-    }
+            // - 1, 0
+            // and I'm searching for 0
+            // so we need a 1
+            let diff = -(nums[i] + nums[j]);
+            println!("{:?}", hm);
 
-    for i in 0..nums.len() {
-        if let Some(f) = hm.get(&nums[i]) {
-            // println!("f={:?}", f);
-            for &(x, y) in f {
-                if i != x && i != y {
-                    let mut v = vec![nums[x], nums[y], nums[i]];
-                    v.sort_unstable();
-                    result.insert(v);
+            if j != i + 1 {
+                if let Some(&k) = hm.get(&diff) {
+                    println!("nums[i]: {i}");
+                    println!("i: {i}");
+                    println!("nums[j]: {j}");
+                    println!("j: {j}");
+                    println!("nums[k]: {k}");
+                    println!("k: {k}");
+                    let mut temp = vec![nums[i], nums[j], nums[k]];
+                    temp.sort_unstable();
+                    result.insert(temp);
                 }
             }
+
+            hm.insert(nums[j], j);
         }
     }
-    result.iter().cloned().collect()
+
+    result.into_iter().collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::three_sum;
+
+    #[test]
+    fn it_works() {
+        // hm {1, 0, -1}
+        // -1, 0, 1, 2, -1, -4
+        //  i  j (1)
+        //  i     j (2)
+        //  i        j (3)
+        //  i
+        let nums = vec![-1, 0, 1, 2, -1, -4];
+        let output = vec![vec![-1, -1, 2], vec![-1, 0, 1]];
+        let result = three_sum(nums);
+        assert_eq!(result, output);
+    }
 }
