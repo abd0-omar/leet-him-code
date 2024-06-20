@@ -80,4 +80,22 @@ mod tests {
         let result = max_distance(position, m);
         assert_eq!(result, output);
     }
+
+    #[test]
+    fn it_works1() {
+        // b for ball
+        // 1, 2, 3, 4
+        // b, b, x, b
+        // or
+        // b, x, b, b
+        // so the minimum dist between any two of them is 1
+        // imagine boys in a bathroom stall
+        // minimum dist between any two boys is maximum
+        // in a male toilet, find a slot such that minimum distance from other boy is maximized
+        let position = vec![1, 2, 3, 4];
+        let m = 3;
+        let output = 1;
+        let result = max_distance(position, m);
+        assert_eq!(result, output);
+    }
 }
