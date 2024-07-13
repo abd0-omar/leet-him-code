@@ -34,15 +34,12 @@ pub fn asteroid_collision(asteroids: Vec<i32>) -> Vec<i32> {
     }
     //println!("{:?}", stack);
     // return back the '-' negative signs instead of 'L'
-    let mut result = vec![];
-    for (asteroid, dir) in stack {
-        if dir == 'L' {
-            result.push(-asteroid);
-        } else {
-            result.push(asteroid);
+    for (asteroid, dir) in stack.iter_mut() {
+        if *dir == 'L' {
+            *asteroid *= -1;
         }
     }
-    result
+    stack.into_iter().map(|(x, _)| x).collect()
 }
 
 #[cfg(test)]
