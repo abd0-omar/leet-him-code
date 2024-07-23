@@ -33,49 +33,72 @@ impl Codec {
     }
 
     fn serialize(&self, root: Option<Rc<RefCell<TreeNode>>>) -> String {
-        let mut count = 0;
-        let x = self._serialize(root, &mut count);
-        println!("x={:?}", x);
-        println!("count={:?}", count);
-        x
+        let f = self._serialize(root);
+        // println!("{}", f); // (1(2()())(3(4()())(5()())))
+        f
     }
 
-    fn _serialize(&self, root: Option<Rc<RefCell<TreeNode>>>, count: &mut i32) -> String {
+    fn _serialize(&self, root: Option<Rc<RefCell<TreeNode>>>) -> String {
         if let Some(node) = root {
             let node = node.borrow();
-            let mut string = format!("({}", node.val);
+            let mut s = format!("({}", node.val);
 
-            string.push(')');
+            if let Some(n) = node.left.clone() {
+                s.push_str(&self._serialize(Some(n)));
+            } else {
+                s.push_str("()");
+            }
 
-            string.push_str(&self._serialize(node.left.clone(), count));
+            if let Some(n) = node.right.clone() {
+                s.push_str(&self._serialize(Some(n)));
+            } else {
+                s.push_str("()");
+            }
 
-            string.push_str(&self._serialize(node.right.clone(), count));
+            s.push(')');
 
-            *count += 1;
-
-            return string;
+            return s;
         }
-        *count += 1;
-        String::from("(x)")
+        String::from("()")
     }
 
     fn deserialize(&self, data: String) -> Option<Rc<RefCell<TreeNode>>> {
-        let mut iter = data.chars().filter_map(|c| match c {
-            '0'..='9' => Some(c.to_digit(10).map(|x| x as i32)),
-            _ => None,
-        });
-        println!("iter={:?}", iter);
-        self._deserialize(&mut iter)
+        let mut index = 0;
+        self._deserialize(&data, &mut index)
     }
 
-    fn _deserialize(
-        &self,
-        data: &mut impl Iterator<Item = Option<i32>>,
-    ) -> Option<Rc<RefCell<TreeNode>>> {
-        let val = data.next()??;
-        let left = self._deserialize(data);
-        let right = self._deserialize(data);
-        Some(Rc::new(RefCell::new(TreeNode { val, left, right })))
+    fn _deserialize(&self, data: &str, index: &mut usize) -> Option<Rc<RefCell<TreeNode>>> {
+        if *index >= data.len() || &data[*index..*index + 2] == "()" {
+            *index += 2; // Skip over the "()" for an empty node
+            return None;
+        }
+
+        // Skip the opening '('
+        *index += 1;
+        // Parse the node's value
+        let mut val = 0;
+        let mut negative = false;
+        if data.as_bytes()[*index] == b'-' {
+            negative = true;
+            *index += 1;
+        }
+        while *index < data.len() && (data.as_bytes()[*index] as char).is_digit(10) {
+            val = val * 10 + (data.as_bytes()[*index] as char).to_digit(10).unwrap() as i32;
+            *index += 1;
+        }
+        if negative {
+            val = -val;
+        }
+
+        let node = Rc::new(RefCell::new(TreeNode::new(val)));
+
+        node.borrow_mut().left = self._deserialize(data, index);
+        node.borrow_mut().right = self._deserialize(data, index);
+
+        // Skip the closing ')'
+        *index += 1;
+
+        Some(node)
     }
 }
 
