@@ -171,19 +171,6 @@ pub fn find_the_city(n: i32, edges: Vec<Vec<i32>>, distance_threshold: i32) -> i
                         distance[from] = relax;
                     }
                 }
-
-                // if (shortestPathDistances[start] != INF &&
-                //     shortestPathDistances[start] + weight <
-                //         shortestPathDistances[end]) {
-                //     shortestPathDistances[end] =
-                //         shortestPathDistances[start] + weight;
-                // }
-                // if (shortestPathDistances[end] != INF &&
-                //     shortestPathDistances[end] + weight <
-                //         shortestPathDistances[start]) {
-                //     shortestPathDistances[start] =
-                //         shortestPathDistances[end] + weight;
-                // }
             }
         }
         distance
