@@ -76,55 +76,133 @@ pub fn find_the_city(n: i32, edges: Vec<Vec<i32>>, distance_threshold: i32) -> i
     // floyd mayweather algorithm
     // first define adjacent matrix
 
-    let n = n as usize;
-    let mut adjacent_matrix = vec![vec![i32::MAX; n]; n];
+    // let n = n as usize;
+    // let mut adjacent_matrix = vec![vec![i32::MAX; n]; n];
 
-    // shortest dist to me is zero
-    for i in 0..n {
-        adjacent_matrix[i][i] = 0;
-    }
+    // // shortest dist to me is zero
+    // for i in 0..n {
+    //     adjacent_matrix[i][i] = 0;
+    // }
 
-    // populate adj_matrix with the given weight
-    for edge in edges {
-        let from = edge[0] as usize;
-        let to = edge[1] as usize;
-        let weight = edge[2];
-        adjacent_matrix[from][to] = weight;
-        adjacent_matrix[to][from] = weight;
-    }
+    // // populate adj_matrix with the given weight
+    // for edge in edges {
+    //     let from = edge[0] as usize;
+    //     let to = edge[1] as usize;
+    //     let weight = edge[2];
+    //     adjacent_matrix[from][to] = weight;
+    //     adjacent_matrix[to][from] = weight;
+    // }
 
-    dbg!(&adjacent_matrix);
+    // dbg!(&adjacent_matrix);
 
-    // floyd algo
-    // (k) (i)m (j)
-    // relax = adj_matrix[i][k] + adj_matrix[k][j]
-    // if relax < adj_matrix[i][j]
-    // adj_matrix[i][j] = relax
+    // // floyd algo
+    // // (k) (i)m (j)
+    // // relax = adj_matrix[i][k] + adj_matrix[k][j]
+    // // if relax < adj_matrix[i][j]
+    // // adj_matrix[i][j] = relax
 
-    for k in 0..n {
-        for i in 0..n {
-            for j in 0..n {
-                if adjacent_matrix[i][k] != i32::MAX && adjacent_matrix[k][j] != i32::MAX {
-                    let relax = adjacent_matrix[i][k] + adjacent_matrix[k][j];
-                    if relax < adjacent_matrix[i][j] {
-                        adjacent_matrix[i][j] = relax;
+    // for k in 0..n {
+    //     for i in 0..n {
+    //         for j in 0..n {
+    //             if adjacent_matrix[i][k] != i32::MAX && adjacent_matrix[k][j] != i32::MAX {
+    //                 let relax = adjacent_matrix[i][k] + adjacent_matrix[k][j];
+    //                 if relax < adjacent_matrix[i][j] {
+    //                     adjacent_matrix[i][j] = relax;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+
+    // let mut min_city = i32::MAX;
+    // let mut min_city_idx = 0;
+    // for i in 0..n {
+    //     let count = adjacent_matrix[i]
+    //         .iter()
+    //         .filter(|&x| x <= &distance_threshold)
+    //         .count() as i32;
+
+    //     if count <= min_city {
+    //         min_city = count;
+    //         min_city_idx = i;
+    //     }
+    // }
+
+    // min_city_idx as _
+
+    // bellman ford shortest path from source
+    // useful when
+    // you want to compute all shortest distances from single source
+    // edges have -ve weight
+    // works on edge list directly, so no need to conver to adj(list/matrix) cuz most problems give you an edge list
+
+    fn el7g_bellman_ford(n: usize, edges: &Vec<Vec<i32>>, source: usize) -> Vec<i32> {
+        let mut distance = vec![i32::MAX; n];
+
+        distance[source] = 0;
+
+        // three loops
+        // one iterator
+        // one to
+        // one neighbors
+        //
+        // then do your normal relaxation
+
+        // relax edges n-1 times
+        for _ in 0..n - 1 {
+            for edge in edges.iter() {
+                let from = edge[0] as usize;
+                let to = edge[1] as usize;
+                let weight = edge[2];
+
+                if distance[from] != i32::MAX {
+                    let relax = distance[from] + weight;
+
+                    if relax < distance[to] {
+                        distance[to] = relax;
                     }
                 }
+
+                // cuz it's bidirectional edges in the graph
+                if distance[to] != i32::MAX {
+                    let relax = distance[to] + weight;
+
+                    if relax < distance[from] {
+                        distance[from] = relax;
+                    }
+                }
+
+                // if (shortestPathDistances[start] != INF &&
+                //     shortestPathDistances[start] + weight <
+                //         shortestPathDistances[end]) {
+                //     shortestPathDistances[end] =
+                //         shortestPathDistances[start] + weight;
+                // }
+                // if (shortestPathDistances[end] != INF &&
+                //     shortestPathDistances[end] + weight <
+                //         shortestPathDistances[start]) {
+                //     shortestPathDistances[start] =
+                //         shortestPathDistances[end] + weight;
+                // }
             }
         }
+        distance
     }
 
     let mut min_city = i32::MAX;
     let mut min_city_idx = 0;
+    let n = n as usize;
     for i in 0..n {
-        let count = adjacent_matrix[i]
+        let distance = el7g_bellman_ford(n, &edges, i);
+
+        let count = distance
             .iter()
             .filter(|&x| x <= &distance_threshold)
             .count() as i32;
 
         if count <= min_city {
-            min_city = count;
             min_city_idx = i;
+            min_city = count;
         }
     }
 
