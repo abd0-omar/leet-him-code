@@ -10,19 +10,22 @@ pub fn remove_subfolders(folder: Vec<String>) -> Vec<String> {
     // there is also a sorting solution too I guess
     //
     // parse input
+    let split_paths: Vec<Vec<&str>> = folder
+        .iter()
+        .map(|path| path.split('/').collect())
+        .collect();
+
+    // dbg!(&split_paths);
     let mut trie = Trie::new();
-    for path in &folder {
-        let path_parts: Vec<_> = path.split('/').collect();
-        trie.add_path(path_parts);
+    for path_parts in &split_paths {
+        trie.add_path(path_parts.iter().copied());
     }
 
     let mut result = Vec::new();
 
-    for path in folder {
-        let path_parts: Vec<_> = path.split('/').collect();
-        if trie.path_exists(path_parts.clone()) {
-            let joined = path_parts.join("/");
-            result.push(joined);
+    for (path_parts, raw_path) in split_paths.into_iter().zip(&folder) {
+        if trie.path_exists(path_parts.iter().copied()) {
+            result.push(raw_path.to_owned());
         }
     }
 
@@ -43,7 +46,10 @@ impl Trie {
         }
     }
 
-    fn add_path(&mut self, input: Vec<&str>) {
+    fn add_path<'a, I>(&'a mut self, input: I)
+    where
+        I: Iterator<Item = &'a str>,
+    {
         let mut cur_trie = self;
 
         for word in input {
@@ -56,7 +62,10 @@ impl Trie {
         cur_trie.is_leaf = true;
     }
 
-    fn path_exists(&self, input: Vec<&str>) -> bool {
+    fn path_exists<'a, I>(&'a self, input: I) -> bool
+    where
+        I: Iterator<Item = &'a str>,
+    {
         let mut cur_trie = self;
         for word in input {
             // if cur_trie.child.get(&word).is_none() {
