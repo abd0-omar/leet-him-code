@@ -1,0 +1,6 @@
+[package]
+name = "minimum-array-end_3394_medium"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
