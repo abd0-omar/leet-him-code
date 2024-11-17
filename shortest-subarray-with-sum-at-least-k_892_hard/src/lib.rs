@@ -8,23 +8,24 @@ impl Solution {
         // sliding window won't work cuz of the negative numbers
         // O(n^2) solution is trivial but won't pass
         let mut result = i32::MAX;
-        let mut cur_sum = 0;
+        let mut cur_sum = 0i64;
         use std::cmp::Reverse;
         use std::collections::BinaryHeap;
         // (prefix_sum, idx)
-        let mut min_heap: BinaryHeap<Reverse<(i32, usize)>> = BinaryHeap::new();
+        let mut min_heap: BinaryHeap<Reverse<(i64, usize)>> = BinaryHeap::new();
         for r in 0..nums.len() {
-            cur_sum += nums[r];
+            cur_sum += nums[r] as i64;
 
-            if cur_sum >= k {
+            if cur_sum >= k as i64 {
                 result = result.min(r as i32 + 1);
             }
 
-            while !min_heap.is_empty() && cur_sum - min_heap.peek().unwrap().0 .0 >= k {
+            while !min_heap.is_empty() && cur_sum - min_heap.peek().unwrap().0 .0 as i64 >= k as i64
+            {
                 let Reverse((_prefix, end_idx)) = min_heap.pop().unwrap();
                 result = result.min((r - end_idx) as i32);
             }
-            min_heap.push(Reverse((cur_sum, r)));
+            min_heap.push(Reverse((cur_sum as i64, r)));
         }
 
         if result == i32::MAX {
