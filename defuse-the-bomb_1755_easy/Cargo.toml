@@ -1,0 +1,6 @@
+[package]
+name = "defuse-the-bomb_1755_easy"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
