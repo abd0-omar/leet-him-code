@@ -1,0 +1,6 @@
+[package]
+name = "find-champion-ii_3189_medium"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
