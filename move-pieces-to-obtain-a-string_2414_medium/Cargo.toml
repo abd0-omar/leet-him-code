@@ -1,0 +1,6 @@
+[package]
+name = "move-pieces-to-obtain-a-string_2414_medium"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
