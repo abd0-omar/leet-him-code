@@ -1,0 +1,6 @@
+[package]
+name = "special-array-ii_3427_medium"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
