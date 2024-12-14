@@ -1,0 +1,6 @@
+[package]
+name = "continuous-subarrays_2868_medium"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
