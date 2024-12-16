@@ -1,0 +1,6 @@
+[package]
+name = "final-array-state-after-k-multiplication-operations-i_3555_easy"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
