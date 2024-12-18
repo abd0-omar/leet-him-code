@@ -1,0 +1,6 @@
+[package]
+name = "final-prices-with-a-special-discount-in-a-shop_1570_easy"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
