@@ -1,0 +1,6 @@
+[package]
+name = "minimize-xor_2509_medium"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
