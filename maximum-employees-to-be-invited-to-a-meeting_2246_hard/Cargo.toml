@@ -1,0 +1,6 @@
+[package]
+name = "maximum-employees-to-be-invited-to-a-meeting_2246_hard"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
