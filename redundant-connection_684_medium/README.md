@@ -1,0 +1,1 @@
+![alt text](<Redundant Connection_page-0001.jpg>)
