@@ -1,0 +1,6 @@
+[package]
+name = "capacity-to-ship-packages-within-d-days_1011_medium"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
