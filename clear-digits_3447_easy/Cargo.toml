@@ -1,0 +1,6 @@
+[package]
+name = "clear-digits_3447_easy"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
