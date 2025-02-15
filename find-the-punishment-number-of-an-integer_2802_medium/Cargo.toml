@@ -1,0 +1,6 @@
+[package]
+name = "find-the-punishment-number-of-an-integer_2802_medium"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
