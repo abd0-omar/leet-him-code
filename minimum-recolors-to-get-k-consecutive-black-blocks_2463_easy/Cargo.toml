@@ -1,0 +1,6 @@
+[package]
+name = "minimum-recolors-to-get-k-consecutive-black-blocks_2463_easy"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
