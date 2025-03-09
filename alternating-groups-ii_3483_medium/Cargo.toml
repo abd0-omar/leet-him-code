@@ -1,0 +1,6 @@
+[package]
+name = "alternating-groups-ii_3483_medium"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
