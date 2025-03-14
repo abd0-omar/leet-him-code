@@ -1,0 +1,6 @@
+[package]
+name = "maximum-candies-allocated-to-k-children_1335_medium"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
