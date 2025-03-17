@@ -1,0 +1,6 @@
+[package]
+name = "divide-array-into-equal-pairs_2308_easy"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
