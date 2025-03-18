@@ -1,0 +1,6 @@
+[package]
+name = "longest-nice-subarray_2478_medium"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
