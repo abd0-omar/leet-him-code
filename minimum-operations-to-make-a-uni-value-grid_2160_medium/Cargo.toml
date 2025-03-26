@@ -1,0 +1,6 @@
+[package]
+name = "minimum-operations-to-make-a-uni-value-grid_2160_medium"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
