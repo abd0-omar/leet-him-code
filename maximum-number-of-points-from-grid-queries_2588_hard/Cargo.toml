@@ -1,0 +1,6 @@
+[package]
+name = "maximum-number-of-points-from-grid-queries_2588_hard"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
