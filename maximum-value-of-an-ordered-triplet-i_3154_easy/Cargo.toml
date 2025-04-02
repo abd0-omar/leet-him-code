@@ -1,0 +1,6 @@
+[package]
+name = "maximum-value-of-an-ordered-triplet-i_3154_easy"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
