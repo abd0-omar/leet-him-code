@@ -1,0 +1,6 @@
+[package]
+name = "sum-of-all-subset-xor-totals_1993_easy"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
