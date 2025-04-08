@@ -1,0 +1,6 @@
+[package]
+name = "minimum-number-of-operations-to-make-elements-in-array-distinct_3656_easy"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
