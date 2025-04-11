@@ -1,0 +1,6 @@
+[package]
+name = "count-symmetric-integers_2998_easy"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
