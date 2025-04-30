@@ -1,0 +1,6 @@
+[package]
+name = "find-numbers-with-even-number-of-digits_1421_easy"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
