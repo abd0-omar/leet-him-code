@@ -1,0 +1,6 @@
+[package]
+name = "count-number-of-balanced-permutations_3637_hard"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
