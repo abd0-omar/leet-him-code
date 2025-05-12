@@ -1,0 +1,6 @@
+[package]
+name = "finding-3-digit-even-numbers_2215_easy"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
