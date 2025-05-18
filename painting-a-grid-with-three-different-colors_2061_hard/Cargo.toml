@@ -1,0 +1,6 @@
+[package]
+name = "painting-a-grid-with-three-different-colors_2061_hard"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
