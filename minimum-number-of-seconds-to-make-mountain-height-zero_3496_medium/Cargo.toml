@@ -1,0 +1,6 @@
+[package]
+name = "minimum-number-of-seconds-to-make-mountain-height-zero_3496_medium"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
