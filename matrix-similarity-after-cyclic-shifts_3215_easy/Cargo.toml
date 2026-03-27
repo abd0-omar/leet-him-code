@@ -1,0 +1,6 @@
+[package]
+name = "matrix-similarity-after-cyclic-shifts_3215_easy"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
